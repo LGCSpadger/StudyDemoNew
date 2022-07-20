@@ -1,5 +1,7 @@
 package com.test.pub.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.test.common.utils.DataExportToExcelUtil;
 import com.test.pub.controller.TestController;
 import com.test.pub.entity.Article;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (Article)表服务实现类
@@ -109,7 +112,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void exportDataToExcel(HttpServletResponse response,String filePath,String fileName,String sheetName) {
-        List<Article> list = articleMapper.queryAll(null);
+//        List<Article> list = articleMapper.queryAll(null);
+        List<Article> list = articleMapper.queryAllByLimit(1,10);
         List<String> tableHead = new ArrayList<>();
         tableHead.add("文章id");
         tableHead.add("文章主题");
@@ -137,8 +141,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> test() {
-        return articleMapper.test();
+    public List<Article> test(String tableName) {
+        return articleMapper.test(tableName);
+    }
+
+    @Override
+    public PageInfo<Map<String,Object>> test01(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map<String,Object>> lists = articleMapper.test01(pageNum,pageSize);
+        PageInfo<Map<String,Object>> pageInfo = new PageInfo<Map<String,Object>>(lists);
+        return pageInfo;
     }
 
     /**
@@ -168,5 +180,28 @@ public class ArticleServiceImpl implements ArticleService {
             log.info("删除文件失败！");
         }
         return result;
+    }
+
+    @Override
+    public List<Article> getAllArticleByPageF(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Article> lists = articleMapper.findAllArticleByPageF(pageNum,pageSize);
+        return lists;
+    }
+
+    @Override
+    public PageInfo<Article> getArticlePage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Article> lists = articleMapper.findAllArticleByPageF(pageNum,pageSize);
+        PageInfo<Article> pageInfo = new PageInfo<Article>(lists);
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Map<String,Object>> getArticlePageOther(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Map<String,Object>> lists = articleMapper.findAllArticleByPageFOther(pageNum,pageSize);
+        PageInfo<Map<String,Object>> pageInfo = new PageInfo<Map<String,Object>>(lists);
+        return pageInfo;
     }
 }

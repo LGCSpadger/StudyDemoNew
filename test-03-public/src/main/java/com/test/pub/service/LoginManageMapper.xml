@@ -1,0 +1,39 @@
+<!--<?xml version="1.0" encoding="GBK"?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="com.linkage.module.liposs.system.loginmanage.dao.LoginManageDAOImp">-->
+
+<!--<insert id="insertMessage" parameterType="map">-->
+<!--		insert -->
+<!--			into tab_sms_scheduler -->
+<!--			   (smsid,-->
+<!--				msisdn,-->
+<!--				content,-->
+<!--				module,-->
+<!--				created_time,-->
+<!--				status)-->
+<!--		values (#{smsid},#{msisdn},#{content},#{module},#{createdTime},#{status})-->
+<!--	</insert>-->
+<!--	<select id="queryPerson" parameterType="map" resultType="int">-->
+<!--		select count(1) from tab_accounts where acc_loginname=#{loginName}-->
+<!--	</select>-->
+<!--	<select id="queryMobile" parameterType="map" resultType="String">-->
+<!--		select a.per_mobile from tab_persons a,tab_accounts b where a.per_acc_oid=b.acc_oid and b.acc_loginname=#{loginName}-->
+<!--	</select>-->
+<!--	&lt;!&ndash; <insert id="insertMessage" parameterType="map">-->
+<!--		insert -->
+<!--			into tab_sms_scheduler -->
+<!--			   (smsid,-->
+<!--				msisdn,-->
+<!--				content,-->
+<!--				module,-->
+<!--				resend_times,-->
+<!--				resend_interval,-->
+<!--				sended_times,-->
+<!--				created_time,-->
+<!--				last_sended_time,-->
+<!--				status)-->
+<!--		values (#{smsid},#{msisdn},#{content},#{module},#{resendTimes},-->
+<!--			    #{resendInterval},#{sendedTimes},#{createdTime},#{lastSendedTime},-->
+<!--			    #{status})-->
+<!--	</insert> &ndash;&gt;-->
+<!--</mapper>-->

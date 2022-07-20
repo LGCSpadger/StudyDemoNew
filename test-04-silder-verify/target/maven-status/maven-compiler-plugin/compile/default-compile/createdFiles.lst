@@ -1,0 +1,5 @@
+com\test\silder_verify\entity\LoginUser.class
+com\test\silder_verify\SliderVerifyApplication.class
+com\test\silder_verify\controller\SilderVerifyController.class
+com\test\silder_verify\utils\PuzzleCaptchaUtil.class
+com\test\silder_verify\entity\Captcha.class

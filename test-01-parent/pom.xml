@@ -18,8 +18,9 @@
         <module>../test-09-mybatis-plus</module>
         <module>../test-10-fastdfs</module>
         <module>../test-11-rabbitmq-producer</module>
-        <module>../test-12-rabbitmq-consumer</module>
+        <module>../test-12-rabbitmq-consumer-01</module>
         <module>../test-13-rabbitmq-consumer-02</module>
+        <module>../test-14-html</module>
     </modules>
 
     <!-- 手动指定pom -->
@@ -66,6 +67,8 @@
         <tomcat-embed-core.version>9.0.41</tomcat-embed-core.version>
         <dynamic-datasource-spring-boot-starter.version>2.4.2</dynamic-datasource-spring-boot-starter.version>
         <druid-spring-boot-starter.version>1.1.14</druid-spring-boot-starter.version>
+        <groovy.version>3.0.10</groovy.version>
+        <commons-io.version>1.3.2</commons-io.version>
     </properties>
 
     <!--依赖声明-->
@@ -244,6 +247,16 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

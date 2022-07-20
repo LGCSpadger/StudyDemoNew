@@ -1,11 +1,13 @@
 package com.test.pub.service;
 
+import com.github.pagehelper.PageInfo;
 import com.test.pub.entity.Article;
 import com.test.pub.entity.TtuTz;
 import com.test.pub.entity.TtuZxl;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * (Article)表服务接口
@@ -71,6 +73,14 @@ public interface ArticleService {
 
     List<TtuZxl> queryAllTtuZxl();
 
-    List<Article> test();
+    List<Article> test(String tableName);
+
+    PageInfo<Map<String,Object>> test01(int pageNum,int pageSize);
+
+    PageInfo<Article> getArticlePage(int pageNum, int pageSize);
+
+    PageInfo<Map<String,Object>> getArticlePageOther(int pageNum, int pageSize);
+
+    List<Article> getAllArticleByPageF(int pageNum,int pageSize);
 
 }

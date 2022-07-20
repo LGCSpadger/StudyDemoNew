@@ -1,5 +1,6 @@
 package com.test.pub.mapper;
 
+import com.github.pagehelper.PageInfo;
 import com.test.pub.entity.Article;
 import com.test.pub.entity.TtuTz;
 import com.test.pub.entity.TtuZxl;
@@ -85,9 +86,24 @@ public interface ArticleMapper {
 
     List<TtuZxl> selectAllTtuZxl();
 
-    List<Article> test();
+    //这里如果没有 @Param("tableName") ，就会报错：There is no getter for property named 'tableName' in 'class java.lang.String'
+    List<Article> test(@Param("tableName") String tableName);
+
+    List<Map<String,Object>> test01(int pageNum,int pageSize);
 
     //测试调用存储过程
     List<Map<String,String>> testProceduce(String txfsName);
+
+    List<Map<String,Object>> selectAllAct();
+
+    PageInfo<Article> selectArticlePage(int pageNum, int pageSize);
+
+    PageInfo<Map<String,Object>> selectArticlePageOther(int pageNum, int pageSize);
+
+    List<Article> findAllArticleByPageF(int pageNum,int pageSize);
+
+    List<Map<String,Object>> findAllArticleByPageFOther(int pageNum,int pageSize);
+
+    List<Article> testSql(Map param);
 
 }

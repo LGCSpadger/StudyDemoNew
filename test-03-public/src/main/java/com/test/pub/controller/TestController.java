@@ -1,11 +1,10 @@
 package com.test.pub.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
 import com.test.common.utils.DataExportToExcelUtil;
 import com.test.common.utils.DataExportToWordUtil;
-import com.test.pub.entity.Article;
-import com.test.pub.entity.TtuTz;
-import com.test.pub.entity.TtuZxl;
-import com.test.pub.entity.WxzwZdyxqk;
+import com.test.pub.entity.*;
 import com.test.pub.service.ArticleService;
 import com.test.pub.service.WxzwZdyxqkService;
 import org.apache.poi.ss.formula.functions.T;
@@ -13,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,19 +41,13 @@ public class TestController {
     }
 
     @RequestMapping("/test02")
-    @ResponseBody
+    @CrossOrigin
     public Map test02() {
         System.out.println("key: " + key);
         Map map = new HashMap();
         map.put("aa",1);
         map.put("bb","fdkgjrioht");
         return map;
-    }
-
-    @RequestMapping("/test03")
-    public void test03() {
-        List<Article> test = articleService.test();
-        System.out.println(test.size());
     }
 
     /**
@@ -66,6 +57,7 @@ public class TestController {
      * @throws IllegalAccessException
      */
     @RequestMapping("/test04")
+    @CrossOrigin
     public void test04(HttpServletResponse response) throws IOException, IllegalAccessException {
         List<Article> data = articleService.queryAll(null);
         List<String> tableHead = new ArrayList<>();
@@ -76,12 +68,12 @@ public class TestController {
         tableHead.add("rdl");
         List<String> fields = Arrays.asList("id","content","occurTime","rdl");
         String filePath = "F:\\test";//临时文件存储路径
-        String fileName = "文章信息.xlsx";
+        String fileName = "文章信息.xls";
         String sheetName = "文章信息";
         //导出数据到excel中，并通过浏览器下载
-//        articleService.exportDataToExcel(response,filePath,fileName,sheetName);
+        articleService.exportDataToExcel(response,filePath,fileName,sheetName);
         //数据导出到excel中，保存至指定的本地文件夹中
-        new DataExportToExcelUtil<Article>().dataExportToExcelXlsxAndSaveToLocal(sheetName,filePath,fileName,tableHead,fields,data);
+//        new DataExportToExcelUtil<Article>().dataExportToExcelXlsxAndSaveToLocal(sheetName,filePath,fileName,tableHead,fields,data);
     }
 
 
@@ -269,6 +261,87 @@ public class TestController {
 //        new DataExportToWordUtil().exportToWord(response,templatePath,"测试文件other.docx","F:/test",data,bindListNames);
         //生成word，保存至指定的本地文件夹中，不通过浏览器下载
         new DataExportToWordUtil().exportToWordAndSaveToLocal(templatePath,"测试文件local.docx","F:/test",data,bindListNames);
+    }
+
+    @RequestMapping(value = "/test10", method = RequestMethod.POST)
+    public void test10(HttpServletRequest request,HttpServletResponse response,BufferedReader br,@RequestParam("name") String name) throws IOException {
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headName = headerNames.nextElement();
+            System.out.println("headName: " + headName);
+            String header = request.getHeader(headName);
+            System.out.println("header: " + header);
+        }
+        String inputLine;
+        String str = "";
+        try {
+            while ((inputLine = br.readLine()) != null) {
+                str += inputLine;
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("IOException: " + e);
+        }
+        System.out.println("str:" + str);
+        BufferedReader reader = request.getReader();
+        System.out.println(request);
+        System.out.println(name);
+    }
+
+    /**
+     * @CrossOrigin 注解表示此接口允许跨域访问
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @CrossOrigin
+    @PostMapping("/test11")
+    public PageInfo<Article> test11(@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
+        PageInfo<Article> queryResult = articleService.getArticlePage(pageNum, pageSize);
+        return queryResult;
+    }
+
+    @CrossOrigin
+    @PostMapping("/test12")
+    public PageInfo<Map<String,Object>> test12(@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
+        PageInfo<Map<String,Object>> queryResult = articleService.getArticlePageOther(pageNum, pageSize);
+        return queryResult;
+    }
+
+    @CrossOrigin
+    @GetMapping("/test14")
+    public List<Article> test14(@RequestParam("page") int page,@RequestParam("limit") int limit){
+        List<Article> queryResult = articleService.test("article");
+        return queryResult;
+    }
+
+    /**
+     * jsp 页面访问测试
+     * @return
+     */
+    @CrossOrigin
+    @GetMapping("/login")
+    public String test13(){
+        return "login";
+    }
+
+    @CrossOrigin
+    @GetMapping("/test15")
+    public PageInfo<Map<String,Object>> test15(@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
+        PageInfo<Map<String,Object>> queryResult = articleService.test01(pageNum, pageSize);
+        return queryResult;
+    }
+
+    @CrossOrigin
+    @PostMapping("/test16")
+//    public String test16(@PathVariable("file") File file,@PathVariable("resourceType") String resourceType){
+    public String test16(HttpServletRequest request){
+        String resourceType = request.getParameter("resourceType");
+//        log.info("File：" + file);
+        log.info("resourceType：" + resourceType);
+        Map<String,Integer> map = new HashMap<>();
+        map.put("id",101);
+        return JSON.toJSONString(map);
     }
 
 }

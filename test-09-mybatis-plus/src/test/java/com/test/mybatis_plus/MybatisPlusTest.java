@@ -1,8 +1,11 @@
 package com.test.mybatis_plus;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.test.mybatis_plus.entity.User;
 import com.test.mybatis_plus.mapper.UserMapper;
+import java.util.ArrayList;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -122,6 +125,15 @@ public class MybatisPlusTest {
 
         page.getRecords().forEach(System.out::println);
         System.out.println(page.getTotal());
+    }
+
+    @Test
+    public void testTemp() {
+        long startTime = System.currentTimeMillis();
+        long resu01 = startTime % 3600000;
+        long resu02 = (startTime / 1000L) % 3600;
+        System.out.println(resu01);
+        System.out.println(resu02);
     }
 
 

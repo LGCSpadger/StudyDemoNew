@@ -1,6 +1,7 @@
 package com.test.mybatis_plus.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.ApiController;
 import com.baomidou.mybatisplus.extension.api.R;
@@ -91,5 +92,13 @@ public class UserController extends ApiController {
     @DeleteMapping("delete")
     public R delete(@RequestParam("idList") List<Long> idList) {
         return success(this.userService.removeByIds(idList));
+    }
+
+    @ApiOperation("新增数据")
+    @PostMapping("getUserBySId")
+    public R getUserBySId(@RequestBody User user, long id) {
+        System.out.println(user);
+        List<User> users = this.userService.getUserBySId(id);
+        return success(JSON.toJSONString(users));
     }
 }

@@ -33,15 +33,16 @@
 //    @Before(value = "webLog()")//这个注解的作用是:在切点前执行方法,内容为指定的切点
 //    public void methodBefore(JoinPoint joinPoint) {
 //        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-//        HttpServletRequest request = requestAttributes.getRequest();
-//        //打印请求内容
-//        log.info("========================请求内容======================");
-//        log.info("请求地址:" + request.getRequestURI().toString());
-//        log.info("请求方式" + request.getMethod());
-//        log.info("请求类方法" + joinPoint.getSignature());
-//        log.info("请求类方法参数" + Arrays.toString(joinPoint.getArgs()));
-//        log.info("========================请求内容======================");
-//
+//        if (requestAttributes != null) {
+//            HttpServletRequest request = requestAttributes.getRequest();
+//            //打印请求内容
+//            log.info("========================请求内容======================");
+//            log.info("请求地址:" + request.getRequestURI().toString());
+//            log.info("请求方式" + request.getMethod());
+//            log.info("请求类方法" + joinPoint.getSignature());
+//            log.info("请求类方法参数" + Arrays.toString(joinPoint.getArgs()));
+//            log.info("========================请求内容======================");
+//        }
 //    }
 //
 //    //在方法执行完结后打印返回内容

@@ -1,0 +1,39 @@
+server:
+  port: 8011
+
+spring:
+  application:
+    name: test-11-rabbitmq-producer
+  datasource:
+    dynamic:
+      primary: test
+      datasource:
+        test:
+          url: jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+          driverClassName: com.mysql.cj.jdbc.Driver
+        springcloud_db01:
+          url: jdbc:mysql://localhost:3306/springcloud_db01?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+          username: root
+          password: root
+          driverClassName: com.mysql.cj.jdbc.Driver
+  mvc:
+    static-path-pattern: /static/**
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.test.rabbitma_producer.mapper
+#  configuration: #配置此种打印方式会在控制台打印出sql和参数，及sql执行的所有结果集
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#配置此种打印方式只会在控制台打印出sql及参数，不会打印出sql执行的所有结果集
+logging:
+  level:
+    com.test.rabbitma_producer: debug

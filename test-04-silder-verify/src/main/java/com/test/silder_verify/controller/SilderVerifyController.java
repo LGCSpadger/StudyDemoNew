@@ -5,10 +5,7 @@ import com.test.silder_verify.entity.LoginUser;
 import com.test.silder_verify.utils.PuzzleCaptchaUtil;
 import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 滑块验证码案例
@@ -21,11 +18,13 @@ public class SilderVerifyController {
     //拼图验证码允许偏差
     private static Integer ALLOW_DEVIATION = 3;
 
+    @CrossOrigin
     @PostMapping("getCaptcha")
     public Object getCaptcha(@RequestBody Captcha captcha) {
         return PuzzleCaptchaUtil.getCaptcha(captcha);
     }
 
+    @CrossOrigin
     @PostMapping("login")
     public Object login(@RequestBody LoginUser loginUser) {
         //校验验证码是否存在

@@ -53,12 +53,6 @@
             <version>1.1.14</version>
             <scope>compile</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.dm/DmJdbcDriver -->
-        <dependency>
-            <groupId>com.dm</groupId>
-            <artifactId>DmJdbcDriver</artifactId>
-            <version>1.7.0</version>
-        </dependency>
     </dependencies>
 
     <properties>
